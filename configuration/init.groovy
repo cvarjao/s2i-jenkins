@@ -12,9 +12,9 @@ Jenkins.instance.setAgentProtocols(['JNLP4-connect', 'Ping'] as Set<String>)
 Jenkins.instance.save()
 
 //https://github.com/samrocketman/jenkins-bootstrap-shared/blob/master/scripts/configure-csrf-protection.groovy
-//println 'Configuring CSRF protection'
-//Jenkins.instance.setCrumbIssuer(new hudson.security.csrf.DefaultCrumbIssuer(true))
-//Jenkins.instance.save()
+println 'Configuring CSRF protection'
+Jenkins.instance.setCrumbIssuer(new hudson.security.csrf.DefaultCrumbIssuer(true))
+Jenkins.instance.save()
 
 println 'Configuring Slave to Master Access Control'
 //https://github.com/samrocketman/jenkins-bootstrap-shared/blob/master/scripts/security-disable-agent-master.groovy
