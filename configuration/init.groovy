@@ -5,6 +5,10 @@ import org.jenkinsci.plugins.workflow.job.WorkflowJob;
 import org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition;
 import hudson.plugins.git.GitSCM;
 import hudson.plugins.git.BranchSpec;
+import java.util.UUID;
+import java.net.URL;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 println 'Configuring JNLP agent protocols'
 //https://github.com/samrocketman/jenkins-bootstrap-shared/blob/master/scripts/configure-jnlp-agent-protocols.groovy
@@ -22,6 +26,17 @@ println 'Configuring Slave to Master Access Control'
 Jenkins.instance.getInjector().getInstance(AdminWhitelistRule.class).setMasterKillSwitch(false)
 Jenkins.instance.save()
 
+
+println 'Creating \'gh-push\' job'
+String ghPushJobConfigXml = new URL('https://raw.githubusercontent.com/cvarjao/openshift-jenkins-tools/master/github-webhook/gh-push.job.xml').getText(StandardCharsets.UTF_8);
+
+ghPushJobConfigXml=ghPushJobConfigXml.replaceAll('\\Q#{GIT_REPO_URL}\\E', 'https://github.com/cvarjao/openshift-jenkins-tools.git');
+ghPushJobConfigXml=ghPushJobConfigXml.replaceAll('\\Q#{JOB_SECRET}\\E', env['GH_WEBHOOK_JOB_SECRET']?:UUID.randomUUID().toString());
+
+if (Jenkins.instance.getItem('gh-push')==null){
+  InputStream ghPushJobConfigInputStream = new ByteArrayInputStream(ghPushJobConfigXml.getBytes(StandardCharsets.UTF_8));
+  Jenkins.instance.createProjectFromXML('gh-push', ghPushJobConfigInputStream);
+}
 
 println 'Creating/Updating \'github-webhook\' job'
 def ghwhJobName='github-webhook';
