@@ -115,3 +115,8 @@ def signatures=new XmlSlurper().parseText('''
 signatures.string.each {
   sa.approveSignature(it.text());
 }
+
+//pre-approved script hash
+sa.approveScript('5dd7a4def409201c75a09761ecba6c5e3d935693');
+
+
