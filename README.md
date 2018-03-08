@@ -14,7 +14,7 @@ oc set resources deployment jenkins --limits=cpu=2000m,memory=2Gi --requests=cpu
 
 
 
-#References:
-
+# References:
+https://github.com/openshift/jenkins
 https://github.com/jenkinsci/github-plugin/blob/master/src/main/java/com/cloudbees/jenkins/GitHubWebHook.java
 
