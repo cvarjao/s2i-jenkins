@@ -31,7 +31,7 @@ println 'Creating \'gh-push\' job'
 String ghPushJobConfigXml = new URL('https://raw.githubusercontent.com/cvarjao/openshift-jenkins-tools/master/github-webhook/gh-push.job.xml').getText(StandardCharsets.UTF_8.name());
 
 ghPushJobConfigXml=ghPushJobConfigXml.replaceAll('\\Q#{GIT_REPO_URL}\\E', 'https://github.com/cvarjao/openshift-jenkins-tools.git');
-ghPushJobConfigXml=ghPushJobConfigXml.replaceAll('\\Q#{JOB_SECRET}\\E', env['GH_WEBHOOK_JOB_SECRET']?:UUID.randomUUID().toString());
+ghPushJobConfigXml=ghPushJobConfigXml.replaceAll('\\Q#{JOB_SECRET}\\E', System.getenv()['GH_WEBHOOK_JOB_SECRET']?:UUID.randomUUID().toString());
 
 if (Jenkins.instance.getItem('gh-push')==null){
   InputStream ghPushJobConfigInputStream = new ByteArrayInputStream(ghPushJobConfigXml.getBytes(StandardCharsets.UTF_8));
