@@ -34,7 +34,7 @@ ghPushJobConfigXml=ghPushJobConfigXml.replaceAll('\\Q#{GIT_REPO_URL}\\E', 'https
 ghPushJobConfigXml=ghPushJobConfigXml.replaceAll('\\Q#{JOB_SECRET}\\E', env['GH_WEBHOOK_JOB_SECRET']?:UUID.randomUUID().toString());
 
 if (Jenkins.instance.getItem('gh-push')==null){
-  InputStream ghPushJobConfigInputStream = new ByteArrayInputStream(ghPushJobConfigXml.getBytes(StandardCharsets.UTF_8));
+  InputStream ghPushJobConfigInputStream = new ByteArrayInputStream(ghPushJobConfigXml.getBytes(StandardCharsets.UTF_8.name()));
   Jenkins.instance.createProjectFromXML('gh-push', ghPushJobConfigInputStream);
 }
 
