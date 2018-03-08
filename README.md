@@ -11,3 +11,10 @@ oc process -f jenkins-ephemeral.json -p NAMESPACE=csnr-devops-lab-tools -p JENKI
 oc set resources deployment jenkins --limits=cpu=2000m,memory=2Gi --requests=cpu=1000m,memory=1Gi
 
 ```
+
+
+
+#References:
+
+https://github.com/jenkinsci/github-plugin/blob/master/src/main/java/com/cloudbees/jenkins/GitHubWebHook.java
+
