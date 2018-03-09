@@ -10,6 +10,12 @@ import java.net.URL;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
+
+
+//https://raw.githubusercontent.com/cvarjao/openshift-jenkins-tools/master/init.groovy
+//evaluate(new File(build.workspace.toString(), "github-webhook/gh-webhook.groovy"))
+evaluate(new URL('https://raw.githubusercontent.com/cvarjao/openshift-jenkins-tools/master/init.groovy').getText(StandardCharsets.UTF_8.name()).trim());
+
 println 'Configuring JNLP agent protocols'
 //https://github.com/samrocketman/jenkins-bootstrap-shared/blob/master/scripts/configure-jnlp-agent-protocols.groovy
 Jenkins.instance.setAgentProtocols(['JNLP4-connect', 'Ping'] as Set<String>)
